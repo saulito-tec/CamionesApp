@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import BusMap from "./components/BusMap";
 import BusInfo from "./components/BusInfo";
 import "./App.css";
+import CameraPanel from "./components/CameraPanel";
 
 const BE = "http://localhost:3001";
 const socket = io(BE);
@@ -64,6 +65,7 @@ export default function App() {
       <main className="app-body">
         <BusMap busState={busState} polyline={polyline} stops={stops} />
         <BusInfo busState={busState} />
+        <CameraPanel />
       </main>
     </div>
   );
