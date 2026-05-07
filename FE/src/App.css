@@ -48,6 +48,13 @@ body {
   color: #fff;
 }
 
+.app-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .app-body {
   display: flex;
   flex: 1;
@@ -111,4 +118,56 @@ body {
   font-style: italic;
   margin-top: 1rem;
   text-align: center;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  display: flex;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-decoration: none;
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+
+.nav-item.active {
+  color: #1e3a5f;
+}
+
+.nav-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Monitoreo placeholder */
+.monitoreo-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.monitoreo-empty {
+  color: #94a3b8;
+  font-size: 1rem;
+  font-style: italic;
 }

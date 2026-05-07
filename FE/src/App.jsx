@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
+import { Routes, Route, NavLink } from "react-router-dom";
 import { io } from "socket.io-client";
-import BusMap from "./components/BusMap";
-import BusInfo from "./components/BusInfo";
+import MapPage from "./pages/MapPage";
+import MonitoreoPage from "./pages/MonitoreoPage";
 import "./App.css";
 
 const BE = "http://localhost:3001";
@@ -25,7 +26,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    // Initial load
     Promise.all([
       fetch(`${BE}/api/bus/state`).then((r) => r.json()),
       fetch(`${BE}/api/bus/route`).then((r) => r.json()),
@@ -37,12 +37,10 @@ export default function App() {
       })
       .catch((e) => console.error("initial fetch failed", e));
 
-    // Socket.io — real-time updates
     socket.on("connect", () => setConnected(true));
     socket.on("disconnect", () => setConnected(false));
     socket.on("busUpdate", (data) => setBusState({ ...data }));
 
-    // Polling fallback every 2s (covers cases where socket drops)
     pollRef.current = setInterval(fetchState, 2000);
 
     return () => {
@@ -56,15 +54,32 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Smart Bus Tracker</h1>
+        <h1>Bio-Stop</h1>
         <span className={`status ${connected ? "online" : "offline"}`}>
           {connected ? "● Live" : "● Polling"}
         </span>
       </header>
-      <main className="app-body">
-        <BusMap busState={busState} polyline={polyline} stops={stops} />
-        <BusInfo busState={busState} />
-      </main>
+
+      <div className="app-content">
+        <Routes>
+          <Route
+            path="/"
+            element={<MapPage busState={busState} polyline={polyline} stops={stops} />}
+          />
+          <Route path="/monitoreo" element={<MonitoreoPage />} />
+        </Routes>
+      </div>
+
+      <nav className="bottom-nav">
+        <NavLink to="/" end className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <span className="nav-icon">🗺️</span>
+          <span className="nav-label">Mapa</span>
+        </NavLink>
+        <NavLink to="/monitoreo" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
+          <span className="nav-icon">📊</span>
+          <span className="nav-label">Monitoreo</span>
+        </NavLink>
+      </nav>
     </div>
   );
 }

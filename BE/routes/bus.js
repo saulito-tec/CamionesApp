@@ -4,18 +4,16 @@ const router = express.Router();
 // Named stops and their matching pointIndex in the Arduino route array.
 // Must stay in sync with ROUTE_SIZE / route[] in the .ino sketch.
 const NAMED_STOPS = [
-  { index: 0,  name: "ITESM Campus Monterrey" },
-  { index: 3,  name: "Cruz Roja Monterrey" },
-  { index: 7,  name: "Revolución / Garza Sada" },
-  { index: 11, name: "Colonia del Valle" },
-  { index: 13, name: "Tec Metro Station" },
-  { index: 16, name: "Obispado" },
-  { index: 19, name: "Av. Constitución" },
-  { index: 23, name: "Hospital Universitario" },
-  { index: 25, name: "Centro / Macroplaza" },
+  { index: 0, name: "Tec de Monterrey (ITESM)" },
+  { index: 3, name: "Nombre de Dios" },
+  { index: 7, name: "Av. División del Norte" },
+  { index: 9, name: "Centro Chihuahua" },
+  { index: 11, name: "Av. Juárez" },
+  { index: 14, name: "Colonia San Felipe" },
+  { index: 19, name: "San Felipe" },
 ];
 
-const TOTAL_POINTS = 26;
+const TOTAL_POINTS = 20;
 
 function findCurrentStop(pointIndex) {
   let last = NAMED_STOPS[0];
@@ -34,37 +32,32 @@ function findNextStop(pointIndex) {
 }
 
 // Full route for FE polyline — matches route[] in .ino exactly
+// Chihuahua city: Tec de Monterrey (ITESM) → Colonia San Felipe
 const ROUTE_POLYLINE = [
-  { lat: 25.6514, lng: -100.2896 },
-  { lat: 25.6535, lng: -100.2901 },
-  { lat: 25.6558, lng: -100.2907 },
-  { lat: 25.6581, lng: -100.2912 },
-  { lat: 25.6604, lng: -100.2918 },
-  { lat: 25.6627, lng: -100.2923 },
-  { lat: 25.6651, lng: -100.2928 },
-  { lat: 25.6672, lng: -100.2933 },
-  { lat: 25.6681, lng: -100.2960 },
-  { lat: 25.6686, lng: -100.2990 },
-  { lat: 25.6688, lng: -100.3020 },
-  { lat: 25.6690, lng: -100.3050 },
-  { lat: 25.6691, lng: -100.3080 },
-  { lat: 25.6693, lng: -100.3100 },
-  { lat: 25.6700, lng: -100.3120 },
-  { lat: 25.6712, lng: -100.3145 },
-  { lat: 25.6727, lng: -100.3165 },
-  { lat: 25.6748, lng: -100.3153 },
-  { lat: 25.6769, lng: -100.3138 },
-  { lat: 25.6789, lng: -100.3121 },
-  { lat: 25.6810, lng: -100.3105 },
-  { lat: 25.6831, lng: -100.3090 },
-  { lat: 25.6851, lng: -100.3076 },
-  { lat: 25.6869, lng: -100.3063 },
-  { lat: 25.6885, lng: -100.3051 },
-  { lat: 25.6900, lng: -100.3040 },
+  { lat: 28.6743, lng: -106.0773 }, // 0  - Tec de Monterrey (ITESM)
+  { lat: 28.672, lng: -106.0793 }, // 1
+  { lat: 28.6695, lng: -106.0813 }, // 2
+  { lat: 28.6668, lng: -106.0835 }, // 3  - Nombre de Dios
+  { lat: 28.6645, lng: -106.087 }, // 4
+  { lat: 28.6632, lng: -106.0915 }, // 5
+  { lat: 28.662, lng: -106.096 }, // 6
+  { lat: 28.661, lng: -106.1005 }, // 7  - Av. División del Norte
+  { lat: 28.6605, lng: -106.1045 }, // 8
+  { lat: 28.6602, lng: -106.1083 }, // 9  - Centro Chihuahua
+  { lat: 28.6608, lng: -106.1118 }, // 10
+  { lat: 28.662, lng: -106.115 }, // 11 - Av. Juárez
+  { lat: 28.6638, lng: -106.1175 }, // 12
+  { lat: 28.666, lng: -106.1193 }, // 13
+  { lat: 28.6685, lng: -106.1208 }, // 14 - Colonia San Felipe
+  { lat: 28.671, lng: -106.122 }, // 15
+  { lat: 28.6735, lng: -106.1228 }, // 16
+  { lat: 28.676, lng: -106.1235 }, // 17
+  { lat: 28.6788, lng: -106.124 }, // 18
+  { lat: 28.6815, lng: -106.1243 }, // 19 - San Felipe terminal
 ];
 
 let busState = {
-  busId: "BUS-01",
+  busId: "Ruta 1",
   lat: ROUTE_POLYLINE[0].lat,
   lng: ROUTE_POLYLINE[0].lng,
   pointIndex: 0,

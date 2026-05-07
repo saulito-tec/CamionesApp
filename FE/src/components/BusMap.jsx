@@ -93,7 +93,7 @@ export default function BusMap({ busState, polyline, stops }) {
     ? [busState.lat, busState.lng]
     : polyline.length
       ? [polyline[0].lat, polyline[0].lng]
-      : [25.6514, -100.2896];
+      : [28.6743, -106.0773];
 
   const polylinePositions = polyline.map((p) => [p.lat, p.lng]);
 
@@ -105,7 +105,7 @@ export default function BusMap({ busState, polyline, stops }) {
     <div className="map-wrapper">
       <MapContainer
         center={center}
-        zoom={14}
+        zoom={13}
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
