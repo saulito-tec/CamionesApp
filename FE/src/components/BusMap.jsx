@@ -21,7 +21,7 @@ L.Icon.Default.mergeOptions({
 
 const busIcon = L.divIcon({
   className: "",
-  html: `<div style="background:#2563eb;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.5);">🚌</div>`,
+  html: `<div style="background:#2d7a50;color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.5);">🚌</div>`,
   iconSize: [34, 34],
   iconAnchor: [17, 17],
 });
@@ -116,9 +116,9 @@ export default function BusMap({ busState, polyline, stops }) {
         {polylinePositions.length > 1 && (
           <Polyline
             positions={polylinePositions}
-            color="#2563eb"
+            color="#4a9e6b"
             weight={5}
-            opacity={0.65}
+            opacity={0.75}
           />
         )}
 
@@ -128,8 +128,8 @@ export default function BusMap({ busState, polyline, stops }) {
             center={[p.lat, p.lng]}
             radius={3}
             pathOptions={{
-              color: "#2563eb",
-              fillColor: "#2563eb",
+              color: "#4a9e6b",
+              fillColor: "#4a9e6b",
               fillOpacity: 0.8,
               weight: 1,
             }}

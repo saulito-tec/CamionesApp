@@ -5,9 +5,9 @@
 }
 
 body {
-  font-family: system-ui, sans-serif;
-  background: #f1f5f9;
-  color: #1e293b;
+  font-family: 'Nunito', system-ui, sans-serif;
+  background: #deeee1;
+  color: #1a3a2a;
   height: 100vh;
 }
 
@@ -22,13 +22,14 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  background: #1e3a5f;
+  background: #4a9e6b;
   color: #fff;
 }
 
 .app-header h1 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .status {
@@ -68,10 +69,10 @@ body {
 
 .bus-info {
   width: 280px;
-  background: #fff;
+  background: #eef7f1;
   padding: 1.25rem;
   overflow-y: auto;
-  border-left: 1px solid #e2e8f0;
+  border-left: 1px solid #b8dfc0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -79,10 +80,10 @@ body {
 
 .bus-info h2 {
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #1e3a5f;
+  font-weight: 800;
+  color: #2d7a50;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid #b8dfc0;
 }
 
 .info-row {
@@ -90,8 +91,8 @@ body {
   flex-direction: column;
   gap: 0.15rem;
   padding: 0.6rem 0.75rem;
-  background: #f8fafc;
-  border-radius: 8px;
+  background: #deeee1;
+  border-radius: 10px;
 }
 
 .info-row.highlight {
@@ -103,21 +104,85 @@ body {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
-  font-weight: 600;
+  color: #4a9e6b;
+  font-weight: 700;
 }
 
 .value {
   font-size: 0.95rem;
-  font-weight: 600;
-  color: #1e293b;
+  font-weight: 700;
+  color: #1a3a2a;
 }
 
 .no-data {
-  color: #94a3b8;
+  color: #7aab8a;
   font-style: italic;
   margin-top: 1rem;
   text-align: center;
+}
+
+/* Start screen */
+.start-screen {
+  height: 100vh;
+  width: 100%;
+  background: #deeee1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 2.5rem;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(74, 158, 107, 0.15);
+  min-width: 280px;
+}
+
+.start-logo {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.start-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #2d7a50;
+  letter-spacing: 0.02em;
+}
+
+.start-subtitle {
+  font-size: 0.95rem;
+  color: #7aab8a;
+  font-weight: 600;
+  text-align: center;
+}
+
+.start-btn {
+  margin-top: 0.5rem;
+  padding: 0.85rem 3rem;
+  background: #4a9e6b;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: 'Nunito', system-ui, sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.start-btn:hover {
+  background: #2d7a50;
+}
+
+.start-btn:active {
+  transform: scale(0.97);
 }
 
 /* Bottom navigation */

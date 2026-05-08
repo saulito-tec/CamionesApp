@@ -14,6 +14,10 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 app.set("io", io);
+
+const routeState = { segmentIndex: 0, progress: 0 };
+app.set("routeState", routeState);
+
 app.use("/api/bus", busRoutes);
 app.use("/api/camera", cameraRoutes);
 
@@ -28,27 +32,24 @@ server.listen(PORT, () => {
 
   const { ROUTE_POLYLINE, updateBusPosition } = require("./routes/bus");
 
-  const SEGMENT_DURATION_MS = 3000; // time to travel between two waypoints
-  const TICK_MS = 500;              // server ticks — FE lerp handles visual smoothness
-
-  let segmentIndex = 0;   // current segment: from point[i] to point[i+1]
-  let progress = 0;       // 0.0 → 1.0 across the segment
+  const SEGMENT_DURATION_MS = 3000;
+  const TICK_MS = 500;
 
   setInterval(() => {
-    progress += TICK_MS / SEGMENT_DURATION_MS;
+    routeState.progress += TICK_MS / SEGMENT_DURATION_MS;
 
-    if (progress >= 1.0) {
-      progress = 0;
-      segmentIndex = (segmentIndex + 1) % (ROUTE_POLYLINE.length - 1);
+    if (routeState.progress >= 1.0) {
+      routeState.progress = 0;
+      routeState.segmentIndex = (routeState.segmentIndex + 1) % (ROUTE_POLYLINE.length - 1);
     }
 
-    const from = ROUTE_POLYLINE[segmentIndex];
-    const to   = ROUTE_POLYLINE[segmentIndex + 1];
+    const from = ROUTE_POLYLINE[routeState.segmentIndex];
+    const to   = ROUTE_POLYLINE[routeState.segmentIndex + 1];
 
-    const lat = from.lat + (to.lat - from.lat) * progress;
-    const lng = from.lng + (to.lng - from.lng) * progress;
+    const lat = from.lat + (to.lat - from.lat) * routeState.progress;
+    const lng = from.lng + (to.lng - from.lng) * routeState.progress;
 
-    updateBusPosition(io, lat, lng, segmentIndex);
+    updateBusPosition(io, lat, lng, routeState.segmentIndex);
   }, TICK_MS);
 
   console.log(`Bus animating — segment ${SEGMENT_DURATION_MS / 1000}s, tick ${TICK_MS}ms`);

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import MapPage from "./pages/MapPage";
+import StartScreen from "./components/StartScreen";
 import "./App.css";
 
 const BE = "http://localhost:3001";
@@ -11,6 +12,7 @@ export default function App() {
   const [polyline, setPolyline] = useState([]);
   const [stops, setStops] = useState([]);
   const [connected, setConnected] = useState(false);
+  const [started, setStarted] = useState(false);
   const pollRef = useRef(null);
 
   async function fetchState() {
@@ -48,6 +50,14 @@ export default function App() {
       clearInterval(pollRef.current);
     };
   }, []);
+
+  if (!started) {
+    const handleStart = () => {
+      fetch(`${BE}/api/bus/reset`, { method: "POST" }).catch(() => {});
+      setStarted(true);
+    };
+    return <StartScreen onStart={handleStart} />;
+  }
 
   return (
     <div className="app">

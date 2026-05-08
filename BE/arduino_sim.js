@@ -7,28 +7,33 @@
 const INTERVAL_MS = 2500;
 const BE_URL = "http://localhost:3001/api/bus/location";
 
-// Chihuahua city: Tec de Monterrey (ITESM) → Colonia San Felipe
+// Chihuahua city: ITESM → south on Heroico Colegio Militar → west through city → north to San Felipe
 const ROUTE = [
   { lat: 28.6743, lng: -106.0773 }, // 0  - Tec de Monterrey (ITESM)
-  { lat: 28.6720, lng: -106.0793 }, // 1
-  { lat: 28.6695, lng: -106.0813 }, // 2
-  { lat: 28.6668, lng: -106.0835 }, // 3  - Nombre de Dios
-  { lat: 28.6645, lng: -106.0870 }, // 4
-  { lat: 28.6632, lng: -106.0915 }, // 5
-  { lat: 28.6620, lng: -106.0960 }, // 6
-  { lat: 28.6610, lng: -106.1005 }, // 7  - Av. División del Norte
-  { lat: 28.6605, lng: -106.1045 }, // 8
-  { lat: 28.6602, lng: -106.1083 }, // 9  - Centro Chihuahua
-  { lat: 28.6608, lng: -106.1118 }, // 10
-  { lat: 28.6620, lng: -106.1150 }, // 11 - Av. Juárez
-  { lat: 28.6638, lng: -106.1175 }, // 12
-  { lat: 28.6660, lng: -106.1193 }, // 13
-  { lat: 28.6685, lng: -106.1208 }, // 14 - Colonia San Felipe
-  { lat: 28.6710, lng: -106.1220 }, // 15
-  { lat: 28.6735, lng: -106.1228 }, // 16
-  { lat: 28.6760, lng: -106.1235 }, // 17
-  { lat: 28.6788, lng: -106.1240 }, // 18
-  { lat: 28.6815, lng: -106.1243 }, // 19 - San Felipe terminal
+  { lat: 28.6726, lng: -106.0787 }, // 1
+  { lat: 28.6708, lng: -106.0802 }, // 2
+  { lat: 28.6689, lng: -106.0819 }, // 3  - Nombre de Dios
+  { lat: 28.6668, lng: -106.0845 }, // 4
+  { lat: 28.6650, lng: -106.0883 }, // 5
+  { lat: 28.6634, lng: -106.0928 }, // 6
+  { lat: 28.6621, lng: -106.0973 }, // 7  - Av. División del Norte
+  { lat: 28.6611, lng: -106.1015 }, // 8
+  { lat: 28.6604, lng: -106.1055 }, // 9
+  { lat: 28.6599, lng: -106.1093 }, // 10 - Centro Chihuahua
+  { lat: 28.6597, lng: -106.1128 }, // 11
+  { lat: 28.6600, lng: -106.1158 }, // 12
+  { lat: 28.6615, lng: -106.1170 }, // 13 - Av. Juárez, turning north
+  { lat: 28.6633, lng: -106.1183 }, // 14
+  { lat: 28.6652, lng: -106.1195 }, // 15
+  { lat: 28.6673, lng: -106.1206 }, // 16
+  { lat: 28.6695, lng: -106.1215 }, // 17 - Colonia San Felipe
+  { lat: 28.6718, lng: -106.1222 }, // 18
+  { lat: 28.6740, lng: -106.1229 }, // 19
+  { lat: 28.6762, lng: -106.1233 }, // 20
+  { lat: 28.6783, lng: -106.1237 }, // 21
+  { lat: 28.6804, lng: -106.1240 }, // 22
+  { lat: 28.6812, lng: -106.1242 }, // 23
+  { lat: 28.6815, lng: -106.1243 }, // 24 - San Felipe terminal
 ];
 
 let pointIndex = 0;
