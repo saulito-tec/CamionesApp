@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
 import { io } from "socket.io-client";
 import MapPage from "./pages/MapPage";
-import MonitoreoPage from "./pages/MonitoreoPage";
 import "./App.css";
 
 const BE = "http://localhost:3001";
@@ -60,26 +58,7 @@ export default function App() {
         </span>
       </header>
 
-      <div className="app-content">
-        <Routes>
-          <Route
-            path="/"
-            element={<MapPage busState={busState} polyline={polyline} stops={stops} />}
-          />
-          <Route path="/monitoreo" element={<MonitoreoPage />} />
-        </Routes>
-      </div>
-
-      <nav className="bottom-nav">
-        <NavLink to="/" end className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-          <span className="nav-icon">🗺️</span>
-          <span className="nav-label">Mapa</span>
-        </NavLink>
-        <NavLink to="/monitoreo" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-          <span className="nav-icon">📊</span>
-          <span className="nav-label">Monitoreo</span>
-        </NavLink>
-      </nav>
+      <MapPage busState={busState} polyline={polyline} stops={stops} />
     </div>
   );
 }

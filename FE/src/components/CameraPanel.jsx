@@ -1,112 +1,49 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+
+const STREAM_URL = "http://192.168.1.1/index.html";
 
 function CameraPanel() {
-  const videoRef = useRef(null);
-  const [cameraOn, setCameraOn] = useState(false);
+  const [connected, setConnected] = useState(false);
+  const [error, setError] = useState(false);
   const [personDetected, setPersonDetected] = useState(false);
-  const [error, setError] = useState("");
-  const [devices, setDevices] = useState([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState("");
+  const [key, setKey] = useState(0);
 
-  const stopCurrentCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-    }
+  const reconnect = () => {
+    setError(false);
+    setConnected(false);
+    setKey((k) => k + 1);
   };
-
-  const loadCameras = async () => {
-    try {
-      const allDevices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = allDevices.filter(
-        (device) => device.kind === "videoinput"
-      );
-
-      setDevices(videoDevices);
-
-      if (videoDevices.length > 0 && !selectedDeviceId) {
-        setSelectedDeviceId(videoDevices[0].deviceId);
-      }
-    } catch (err) {
-      setError("No se pudieron cargar las cámaras disponibles.");
-      console.error(err);
-    }
-  };
-
-  const startCamera = async (deviceId = selectedDeviceId) => {
-    try {
-      stopCurrentCamera();
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: deviceId ? { deviceId: { exact: deviceId } } : true,
-        audio: false,
-      });
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-
-      setCameraOn(true);
-      setError("");
-
-      await loadCameras();
-    } catch (err) {
-      setCameraOn(false);
-      setError("No se pudo acceder a la cámara. Revisa permisos del navegador.");
-      console.error(err);
-    }
-  };
-
-  const handleCameraChange = (e) => {
-    const deviceId = e.target.value;
-    setSelectedDeviceId(deviceId);
-    startCamera(deviceId);
-  };
-
-  useEffect(() => {
-    startCamera();
-
-    return () => {
-      stopCurrentCamera();
-    };
-  }, []);
 
   return (
     <div className="camera-panel">
       <h2>Cámara de la parada</h2>
 
-      {devices.length > 0 && (
-        <div className="camera-selector">
-          <label>Seleccionar cámara: </label>
-          <select value={selectedDeviceId} onChange={handleCameraChange}>
-            {devices.map((device, index) => (
-              <option key={device.deviceId} value={device.deviceId}>
-                {device.label || `Cámara ${index + 1}`}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
       <div className="camera-box">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
+        <img
+          key={key}
+          src={STREAM_URL}
           className="camera-video"
+          alt="IP camera stream"
+          onLoad={() => {
+            setConnected(true);
+            setError(false);
+          }}
+          onError={() => {
+            setConnected(false);
+            setError(true);
+          }}
         />
       </div>
 
-      {error && <p className="camera-error">{error}</p>}
+      {error && (
+        <p className="camera-error">No se pudo conectar a {STREAM_URL}</p>
+      )}
 
       <div className="camera-status">
         <p>
           Estado de cámara:{" "}
-          <strong>{cameraOn ? "Activa" : "Inactiva"}</strong>
+          <strong>{connected ? "Conectada" : "Sin conexión"}</strong>
         </p>
-
         <p>
           Detección:{" "}
           <strong>
@@ -115,9 +52,14 @@ function CameraPanel() {
         </p>
       </div>
 
+      <button className="btn-reconnect" onClick={reconnect}>
+        Reconectar cámara
+      </button>
+
       <button
         className={personDetected ? "btn-danger" : "btn-success"}
-        onClick={() => setPersonDetected(!personDetected)}
+        style={{ marginTop: "8px" }}
+        onClick={() => setPersonDetected((p) => !p)}
       >
         {personDetected ? "Marcar parada vacía" : "Simular persona detectada"}
       </button>

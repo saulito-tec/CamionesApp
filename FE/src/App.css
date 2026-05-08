@@ -235,6 +235,18 @@ body {
   color: white;
 }
 
+.btn-reconnect {
+  width: 100%;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #1f2937;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
 .camera-selector {
   margin-bottom: 12px;
   display: flex;
